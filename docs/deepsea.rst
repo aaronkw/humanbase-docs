@@ -18,7 +18,7 @@ Jian Zhou, Olga G. Troyanskaya. **Predicting the Effects of Noncoding Variants w
 To determine if certain features (ie. transcription factors, marks, or cell types) are present/accounted for in the model, refer to the `supplemental feature table <https://s3-us-west-2.amazonaws.com/humanbase-dev/deepsea/examples/41588_2019_420_MOESM9_ESM.csv>`_ which has all the profiles used to train DeepSEA.
 
 Input
-------------
+-----
 
 DeepSEA predicts genomic variant effects on a wide range of chromatin features at the variant position (Transcription factors binding, DNase I hypersensitive sites, and histone marks in multiple human cell types). DeepSEA can also be ultilized for predicting chromatin features for any DNA sequence.
 
@@ -49,20 +49,40 @@ We support three types of input: vcf, fasta, bed. If you want to predict effects
 **Bed format** provides another way to specify sequences in human reference genome (hg19). The bed input should specify 1000bp-length regions. A minimal example is ``chr1 109817091 109818090``. The three columns are chromosome, start position, and end position.
 
 Genome coordinates
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 We support only ``GRCh37/hg19`` genome coordinates. You can use LiftOver to convert your coordinates to the correct version.
 
 Large submissions
-~~~~~~~~~~~~
-We recommend using the web server if you have <10,000 variants or sequences. You will experience degraded performance when submitting a larger set of sequeneces. In those instances, we suggest that you split the set into multiple <10,000 submissions, or run the standalone version on your local machine, or contact our group directy.
+~~~~~~~~~~~~~~~~~
+We recommend using the web server if you have <10,000 variants or sequences. You will experience degraded performance when submitting a larger set of sequences. In those instances, we suggest that you split the set into multiple <10,000 submissions, or run the standalone version on your local machine, or contact our group directly.
+
+
+Output
+------
+
+Regulatory feature scores
+~~~~~~~~~~~~~~~~~~~~~~~~~
+* **diffs**: The difference between the the predicted probability of the reference allele and the alternative allele for a regulatory feature (:math:`p_{alt} -p_{ref}`).
+* **e-value**: E-value is defined as the expected proportion of SNPs with a larger predicted effect. We calculate an 'e-value' based on the empirical distribution of that feature's effect (:math:`abs(p_{alt} -p_{ref})`) among gnomAD variants. For example, a feature e-value of 0.01 indicates that only 1% of gnomAD variants have a larger predicted effect.
+* **z-score**: A scaled score where the feature diff score (:math:`p_{alt} -p_{ref}`) is divided by the root mean square of the feature diff score across gnomAD variants. Note that this is "sign-preserving", i.e. a negative z-score indicates that a mutation **decreases** the probability of a regulatory feature.
+
+Variant scores
+~~~~~~~~~~~~~~
+
+* **Disease Impact Score (DIS)**: DIS is calculated by training a logistic regression model that prioritizes likely disease-associated mutations on the basis of the predicted transcriptional or post-transcriptional regulatory effects of these mutations (See Zhou et. al, 2019). The predicted DIS probabilities are then converted into 'DIS e-values', computed based on the empirical distributions of predicted effects for gnomAD variants. The final DIS score is:
+
+  .. math::
+      -log10(DIS e-value_{feature})
+
+* **Mean -log e-value (MLE)**: For each predicted regulatory feature effect of a variant, we calculate a 'feature e-value' based on the empirical distribution of that feature for gnomAD variants (see above). The MLE score of a variant is
+
+  .. math::
+      \sum -log10(e-value_{feature}) / N
 
 In-silico mutagenesis
-------------
+---------------------
 Perform "In silico saturated mutagenesis" (ISM) analysis to discover informative sequence features within any sequence. Specifically, it performs computational mutation scanning to assess the effect of mutating every base of the input sequence on chromatin feature predictions. This method for context-specific sequence feature extraction takes advantage of DeepSEA’s ability to utilize flanking context sequences information.
 
 Note that ISM only accepts a sequence (FASTA file) as input.
 
-ISM outputs effects for each of three possible substitutions of all 1000 bases, across all chromatin features. 
-
-
-
+ISM outputs effects for each of three possible substitutions of all 1000 bases, across all chromatin features.
