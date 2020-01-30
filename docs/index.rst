@@ -24,6 +24,16 @@ A researcher who studies the role of the immune system and inflammation in chron
 Using HumanBase, she will be able to examine data-driven predictions of genes expressed in the podocyte cells and analyze predicted functional and mechanistic networks specific to the kidney glomerulus. She could also provide the system with a list of relevant GWAS or family-based study results and the system will reprioritize these results based on the relevant functional maps. She will be able to iteratively refine this analysis by limiting the data used in the integration only to kidney datasets or by integrating her own data in the analysis.
 
 ---------------------
+Licensing
+---------------------
+All data in HumanBase are freely available under a `CC-BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`_ license. Please give appropriate credit, provide a link to the license, and indicate if changes were made.
+
+---------------------
+Who are we?
+---------------------
+HumanBase is actively developed by the `Genomics group <https://www.simonsfoundation.org/flatiron-institute/simons-center-for-data-analysis/genomics/>`_ at the  `Flatiron Institute <https://www.simonsfoundation.org/flatiron-institute/>`_ .
+
+---------------------
 Help topics
 ---------------------
 .. toctree::
@@ -40,11 +50,4 @@ Help topics
    citations
 
 
-Licensing
----------------------
-All data in HumanBase are freely available under a `CC-BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`_ license. Please give appropriate credit, provide a link to the license, and indicate if changes were made.
 
-
-Who are we?
----------------------
-HumanBase is actively developed by the `Genomics group <https://www.simonsfoundation.org/flatiron-institute/simons-center-for-data-analysis/genomics/>`_ at the  `Flatiron Institute <https://www.simonsfoundation.org/flatiron-institute/>`_ .
