@@ -72,12 +72,12 @@ Variant scores
 * **Disease Impact Score (DIS)**: DIS is calculated by training a logistic regression model that prioritizes likely disease-associated mutations on the basis of the predicted transcriptional or post-transcriptional regulatory effects of these mutations (See Zhou et. al, 2019). The predicted DIS probabilities are then converted into 'DIS e-values', computed based on the empirical distributions of predicted effects for gnomAD variants. The final DIS score is:
 
   .. math::
-      -log10(DIS e-value_{feature})
+      -log10(DIS evalue_{feature})
 
 * **Mean -log e-value (MLE)**: For each predicted regulatory feature effect (:math:`abs(p_{alt}-p_{ref}`)) of a variant, we calculate a 'feature e-value' based on the empirical distribution of that feature's effects among gnomAD variants (see above Regulatory feature scores: e-value). The MLE score of a variant is
 
   .. math::
-      \sum -log10(e-value_{feature}) / N
+      \sum -log10(evalue_{feature}) / N
 
 In-silico mutagenesis
 ---------------------
