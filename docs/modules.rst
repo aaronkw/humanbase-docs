@@ -9,7 +9,7 @@ Method
 The approach\ :sup:`1` is based on shared k-nearest-neighbors (SKNN) and the Louvain community-finding algorithm to cluster the user-selected tissue network into distinct modules of tightly connected genes. The SKNN-based strategy has the advantages of alleviating the effect of high-degree genes and accentuating local network structure by connecting genes that are likely to be functionally clustered together. 
  
 This technique proceeds as follows:
-  (i) First, we create a subset of the (user-selected) network containing only the (user-provided) genes and all the edges between them. Given the resulting graph G with V nodes (user-provided genes) and E edges, with each edge between genes i and j associated with a weight p\ :sub:`ij`, 
+  (i) First, we create a subset of the user-selected network containing only the user-provided genes and all the edges between them. Given the resulting graph G with V nodes (user-provided genes) and E edges, with each edge between genes i and j associated with a weight p\ :sub:`ij`, 
   (ii) Calculate a new weight for the edge between each pair of nodes i and j that is equal to the number of k nearest neighbors (based on the original weights p\ :sub:`ij`) shared by i and j;
   (iii) Choose the top 5% of the edges based on the new edge weights, and apply a graph clustering algorithm.
 
