@@ -47,6 +47,7 @@ The Sei framework predicts 40 sequence class scores, covering a wide range of re
 
 To help interpretation, we grouped sequence classes into groups including P (Promoter), E (Enhancer), CTCF (CTCF-cohesin binding), TF (TF binding), PC (Polycomb-repressed), HET (Heterochromatin), TN (Transcription), and L (Low Signal) sequence classes. Please refer to our manuscript for a more detailed description of the sequence classes.
 
+Note: sequence class predictions are only available for vcf inputs.
 
 ::
 
