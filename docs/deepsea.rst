@@ -40,6 +40,10 @@ We recommend using the web server if you have <10,000 variants or sequences. You
 Output
 ------
 
+Regulatory feature scores
+~~~~~~~~~~~~~~~~~~~~~~~~~
+* **diffs**: The difference between the the predicted probability of the reference allele and the alternative allele for a regulatory feature (:math:`p_{alt} -p_{ref}`).
+
 Sequence classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -47,6 +51,8 @@ The Sei framework predicts 40 sequence class scores, covering a wide range of re
 
 To help interpretation, we grouped sequence classes into groups including P (Promoter), E (Enhancer), CTCF (CTCF-cohesin binding), TF (TF binding), PC (Polycomb-repressed), HET (Heterochromatin), TN (Transcription), and L (Low Signal) sequence classes. Please refer to our manuscript for a more detailed description of the sequence classes.
 
+
+::
 
   | Sequence class label |               Sequence class name | Rank by size | Group |
   |---------------------:|----------------------------------:|-------------:|------:|
