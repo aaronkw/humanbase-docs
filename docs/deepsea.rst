@@ -10,7 +10,7 @@ Sei is a deep-learning-based framework for systematically predicting sequence re
 Sequence class-level variant effects are computed by comparing the predictions for the reference and the alternative alleles. A positive score indicates an increase in sequence class activity by the alternative allele and vice versa. Sequence class-level scores are computed by projecting the 21,907 chromatin profile predictions for the sequence to the unit vector that represents each sequence class.
 
 For older DeepSEA models see:
-:ref:`Beluga` (2019)
+:doc:`beluga` (2019)
 
 
 
