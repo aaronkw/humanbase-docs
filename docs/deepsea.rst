@@ -5,22 +5,18 @@ DeepSEA
 Introduction
 ------------
 
-DeepSEA is a deep learning-based algorithmic framework for predicting the chromatin effects of sequence alterations with single nucleotide sensitivity. DeepSEA can accurately predict the epigenetic state of a sequence, including transcription factors binding, DNase I sensitivities and histone marks in multiple cell types, and further utilize this capability to predict the chromatin effects of sequence variants and prioritize regulatory variants.
+Sei is a deep-learning-based framework for systematically predicting sequence regulatory activities and applying sequence information to understand human genetics data. Sei provides a global map from any sequence to regulatory activities, as represented by 40 sequence classes. Each sequence class integrates predictions for 21,907 chromatin profiles (transcription factor, histone marks, and chromatin accessibility profiles across a wide range of cell types) from the underlying Sei deep learning model. You can also find the Sei code repository here (https://github.com/FunctionLab/sei-framework) or read about our manuscript here (https://www.biorxiv.org/content/10.1101/2021.07.29.454384v1).
 
-The current version of DeepSEA, nicknamed '**Beluga**', can predict **2002** chromatin features. Beluga is described in:
+Sequence class-level variant effects are computed by comparing the predictions for the reference and the alternative alleles. A positive score indicates an increase in sequence class activity by the alternative allele and vice versa. Sequence class-level scores are computed by projecting the 21,907 chromatin profile predictions for the sequence to the unit vector that represents each sequence class.
 
-Jian Zhou, Chandra L. Theesfeld, Kevin Yao, Kathleen M. Chen, Aaron K. Wong, and Olga G. Troyanskaya, **Deep learning sequence-based ab initio prediction of variant effects on expression and disease risk**. Nature Genetics (2018).
+For older DeepSEA models see:
+`Beluga`_
 
-DeepSEA is originally described in the following manuscript:
-
-Jian Zhou, Olga G. Troyanskaya. **Predicting the Effects of Noncoding Variants with Deep learning-based Sequence Model.** Nature Methods (2015).
-
-To determine if certain features (ie. transcription factors, marks, or cell types) are present/accounted for in the model, refer to the `supplemental feature table <https://s3-us-west-2.amazonaws.com/humanbase-dev/deepsea/examples/41588_2019_420_MOESM9_ESM.csv>`_ which has all the profiles used to train DeepSEA.
 
 Input
 -----
 
-DeepSEA predicts genomic variant effects on a wide range of chromatin features at the variant position (Transcription factors binding, DNase I hypersensitive sites, and histone marks in multiple human cell types). DeepSEA can also be utilized for predicting chromatin features for any DNA sequence.
+DeepSEA predicts genomic variant effects on a wide range of chromatin features at the variant position (Transcription factors binding, DNase I hypersensitive sites, and histone marks in multiple human cell types). DeepSEA can also be ultilized for predicting chromatin features for any DNA sequence.
 
 File formats
 ~~~~~~~~~~~~
@@ -31,46 +27,20 @@ We support three types of input: vcf, fasta, bed. If you want to predict effects
 **Fasta format** input should include sequences of 2000bp length each. If a sequence is longer than 2000bp, only the center 2000bp will be used. A minimal example is ::
 
   >TestSequence
-  TGGGATTACAGGCGTGAGCCACCGCGCCCGGCCCATTGTACCATTCTTAT
-  GCCTTTGCGTCCTCATAGCTTAGCTCCCGTATATCAGTGAGAACATACTA
-  TGTTTGGTTTTCCATACCCGAGTTACTTCACTTAGAATAATAGTCTCCAA
-  TTTCATCCAGGTCAGTGCAAATGCGTTAATTCGTTCCTTTTATGGCTGAG
-  TAGTATTCCATCATATATATATACTACAGTTTCTTTATCCACTCGTAAAT
-  TGATGGGCATTTGTGTTGGAACACTTCTCCACTGCTGGTGGGAATGTAAA
-  TTAGTGCAGCCACTATGGATAACAGTGTGGAGATTTGTTAAAGAACTAAA
-  ACTAGAACTACCATTTGATCCAGCAATCCCACTACTGGGTATCTACCCAG
-  AAGAAAAGAAGTCATTATTTGAAAAAGATACTTGCACGGGCATGTTTATA
-  GCAGCACAATTCACAATTGTAGTTGTATTTCTTTAAGCGTGTCTTTTCAA
-  TATCTCTCATGTTTCTGGTATAGATGGTATATATGTTAATCTTGTTCCTG
-  AGGTCTGTTTTTTATTTTTGTCATTAAAGTGGGAATTAAATAGTTTTGTA
-  GTGCATATAAATTAAAGAAAAAGTTCACATAAGCATATTTGCCAATCATC
-  TCAAAATGCTATATTCTCCTTCACGGTTTTGAAAATAATTCAGGGTTTTC
-  TCTTCCTCATTGCTTTCCCACCAACTGACAGTATTATTTTCTTAGTCATT
-  TTACTGACCTTTGAAATTACTCCTTTGAGGTCTTCTAAAAAATTTTATGG
-  GCTCTGCTGCTTTTTGGTGGCCTCCTTGTATCATTTATTCTATTACAGGA
-  CGACTTACAAAAGGAAGCACATAAATTGACCCATATACATATCCTATCAT
-  TGGGGAGTTTCTGTGCAAATGTTATTTATTGGAAGCTATTACTAAGAATT
-  GTAAGAAAAATAATTGGTATTGATGCAGCTAGTATGGTTCCTGTAATTAT
-  CGTACTCAGCCACGTAAATCATAGCTATATGTAGCCAAAGATCCATGAAC
-  AAAATTTCCAGTAACATCATTATAATTCAAAAGGCAGACTTTCAGAACCA
-  GACAGACTTGAATTTAAATTCTAGCTTTACCACACATGAATTTAACCTTG
-  TGGAAGGTTAACCTATCTAAACTCATGTTTCTTCATTGGTAGCTGATAAA
-  ATTAAGGATCATGTATATAACCACCTAGTAGAGTTGTTTAAGAAACTGTT
-  AGAATTCCATAAATTGTTAGTATTAATGAGTTTTTGTTGGACATGTGTTA
-  GGCTAGGCCACTCCTTGACCTTCATAGAGGTATGGATTATGACACAAATT
-  CTAAACTGTAGGTAGGCATGGCTTTGTAGCAAGTATTAAAATAGTAAATA
-  TTTTATTTTTATAAGATAAATGTAAACCTTTTAAAAGTTTCATTACATTT
-  GTATTTATGAAATATCATCCTATATCAACTATAGAGAGAAGATCGCAAGA
-  AGGCAGTGGCAGCAGAGGCTCCAGTTAGGAGGCTACTAGTCCAAATACAT
-  TGCGATAAAAACTTGGCAAAAGGTGCTGGTAGTCTGATGAAATAAAGTAG
-  ATAAATTTTAGAGGTATTTATAAAATAATTAAAGAATATTCAATAATAGG
-  AGATATATTACCCAATAGAGTGGAGATTCAAAGATAACTCCGAAAGTTTT
-  TTGCTAAAGCAACATTTGGCTGTGCTATCATTTACTAAGAAAGACAACAA
-  GAGAGTAAAATCAAGTTTGAGGATGAAGTGAATTTATTCCTTTTTGATTG
-  ATACATAATTGACATGTAATAAAACCCACAATGTTAAGAGTTCGGTTTGA
-  TGTGCTTGACTATTTTAGGCACTGGTGTTATCACAACACAAGACAACAGA
-  TAGGACATTCTCAGAAAATTTTTTCATGTCCCTTTCCAGTCAGTTTCAAG
-  CCTTCTTTCCATGCAATAATTTTCTCACTTTGCCATTCTAGTAGGTGTGA
+  TATCTCTCATGTTTCTGGTATAGATGGTATATATGTTAATCTTGTTCCTGAGGTCTGTTTTTTATTTTTGTCATTAAAGT
+  GGGAATTAAATAGTTTTGTAGTGCATATAAATTAAAGAAAAAGTTCACATAAGCATATTTGCCAATCATCTCAAAATGCT
+  ATATTCTCCTTCACGGTTTTGAAAATAATTCAGGGTTTTCTCTTCCTCATTGCTTTCCCACCAACTGACAGTATTATTTT
+  CTTAGTCATTTTACTGACCTTTGAAATTACTCCTTTGAGGTCTTCTAAAAAATTTTATGGGCTCTGCTGCTTTTTGGTGG
+  CCTCCTTGTATCATTTATTCTATTACAGGACGACTTACAAAAGGAAGCACATAAATTGACCCATATACATATCCTATCAT
+  TGGGGAGTTTCTGTGCAAATGTTATTTATTGGAAGCTATTACTAAGAATTGTAAGAAAAATAATTGGTATTGATGCAGCT
+  AGTATGGTTCCTGTAATTATCGTACTCAGCCACGTAAATCATAGCTATATGTAGCCAAAGATCCATGAACAAAATTTCCA
+  GTAACATCATTATAATTCAAAAGGCAGACTTTCAGAACCAGACAGACTTGAATTTAAATTCTAGCTTTACCACACATGAA
+  TTTAACCTTGTGGAAGGTTAACCTATCTAAACTCATGTTTCTTCATTGGTAGCTGATAAAATTAAGGATCATGTATATAA
+  CCACCTAGTAGAGTTGTTTAAGAAACTGTTAGAATTCCATAAATTGTTAGTATTAATGAGTTTTTGTTGGACATGTGTTA
+  GGCTAGGCCACTCCTTGACCTTCATAGAGGTATGGATTATGACACAAATTCTAAACTGTAGGTAGGCATGGCTTTGTAGC
+  AAGTATTAAAATAGTAAATATTTTATTTTTATAAGATAAATGTAAACCTTTTAAAAGTTTCATTACATTTGTATTTATGA
+  AATATCATCCTATATCAACTATAGAGAGAAGATCGCAAGA
+
 
 **Bed format** provides another way to specify sequences in human reference genome (hg19). The bed input should specify 2000bp-length regions. A minimal example is ``chr1 109817091 109819090``. The three columns are chromosome, start position, and end position.
 
