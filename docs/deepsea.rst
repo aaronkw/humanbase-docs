@@ -40,10 +40,6 @@ We recommend using the web server if you have <10,000 variants or sequences. You
 Output
 ------
 
-Regulatory feature scores
-~~~~~~~~~~~~~~~~~~~~~~~~~
-* **diffs**: The difference between the the predicted probability of the reference allele and the alternative allele for a regulatory feature (:math:`p_{alt} -p_{ref}`).
-
 Sequence classes
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -96,3 +92,8 @@ To help interpretation, we grouped sequence classes into groups including P (Pro
   |                 TF5  |                               AR  |           37 |   TF  |
   |                 E12  |                Erythroblast-like  |           38 |    E  |
   |                 HET6 |                       Centromere  |           39 |   HET |
+
+
+  Regulatory feature scores
+  ~~~~~~~~~~~~~~~~~~~~~~~~~
+  * **diffs**: The difference between the the predicted probability of the reference allele and the alternative allele for a regulatory feature (:math:`p_{alt} -p_{ref}`).
