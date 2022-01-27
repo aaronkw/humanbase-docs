@@ -95,6 +95,7 @@ Note: sequence class predictions are only available for vcf inputs.
   |                 HET6 |                       Centromere  |           39 |   HET |
 
 
-  Regulatory feature scores
-  ~~~~~~~~~~~~~~~~~~~~~~~~~
-  * **diffs**: The difference between the the predicted probability of the reference allele and the alternative allele for a regulatory feature (:math:`p_{alt} -p_{ref}`).
+
+Regulatory feature scores
+~~~~~~~~~~~~~~~~~~~~~~~~~
+* **diffs**: The difference between the the predicted probability of the reference allele and the alternative allele for a regulatory feature (:math:`p_{alt} -p_{ref}`).
