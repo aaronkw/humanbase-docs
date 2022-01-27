@@ -1,5 +1,5 @@
 =======
-DeepSEA/Sei
+DeepSEA / Sei
 =======
 
 Introduction
@@ -15,8 +15,6 @@ For older DeepSEA models see:
 
 Input
 -----
-
-DeepSEA/Sei predicts genomic variant effects on a wide range of chromatin features at the variant position (Transcription factors binding, DNase I hypersensitive sites, and histone marks in multiple human cell types). DeepSEA can also be utilized for predicting chromatin features for any DNA sequence.
 
 File formats
 ~~~~~~~~~~~~
