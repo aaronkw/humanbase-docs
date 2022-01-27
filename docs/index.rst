@@ -46,8 +46,6 @@ Help topics
    modules
    netwas
    deepsea
+   beluga
    expecto
    citations
-
-
-
