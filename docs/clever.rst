@@ -5,13 +5,13 @@ CLEVER
 
 Introduction
 ------------
-CLEVER is a framework for ab initio sequence-based prediction of mutation gene expression effects for primary human cell types. With this web interface, we provide an explorer of cell type-specific expression effect predictions. The current release contains all ClinVar variants within 20kb to the representative TSS of a gene (normalized to 1000 Genomes variant effects)KSENIA: no effect threshold was employed -correct?.
+CLEVER is a framework for `ab initio` sequence-based prediction of mutation gene expression effects for primary human cell types. With this web interface, we provide an explorer of cell type-specific expression effect predictions. The current release contains all ClinVar variants within +/- 20kb of the representative TSS of a gene. We use 1000 Genomes variant effects predictions for z-score normalization. No effect threshold was employed for the current release of the data.
 
 The code for predicting expression effects for human genome variants and training new expression models is available at this `github repository <https://github.com/FunctionLab/KSENIA>`_.
 
 The CLEVER framework is described in the following manuscript:
 
-Ksenia Sokolova, Chandra L. Theesfeld, Aaron K. Wong, and Olga G. Troyanskaya, CLEVER: Predicting single-cell-resolved gene expression from sequence, Submitted, 2022
+Ksenia Sokolova, Chandra L. Theesfeld, Aaron K. Wong, Zijun Zhang, Kara Dolinski and Olga G. Troyanskaya, CLEVER: Predicting single-cell-resolved gene expression from sequence, Submitted, 2022
 
 Download
 --------
@@ -21,6 +21,7 @@ This is the bulk download `link <KSENIA>`_ of all mutation predictions.
 
 Method Details
 --------------
-CLEVER uses exponential basis function-based linear models upon deep convolutional network model of chromatin effects. CLEVER predicts expression levels directly from sequence and is capable of predicting effects of sequence variations.
+CLEVER is a modular framework, that uses regularized linear module upon deep convolutional network model of chromatin profifiling effects to predict cell type specific expression. The framework is capable of predicting expression levels directly from sequence and is sensitive to the sequence variations.
 
-KSENIA For detailed procedures of the prediction, the chromatin predictions were computed from DeepSEA "Beluga" per 200bp bin, and 200 bins centered at TSS (40kb region) were used as input to predict expression effects. To reduce the dimensionality for ExPecto model training, the predicted chromatin spatial patterns were summarized to spatial features by 10 exponential basis functions. The summarized spatial features and gene expression levels were used to train regularized linear models for the final step of the prediction. The representative TSSes are selected based on FANTOM CAGE data.
+The chromatin predictions were computed using a DeepSEA "Beluga" model, using sliding window approach of 2000bp width with 200bp step, for the 40kb region surrounding the TSS. Exponential condense function is then used to reduce the dimensionality of the data before using it in the module 2. To analyze effect of the variants we get predictions for the reference and alternative sequences and compare the difference. 
+
