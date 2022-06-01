@@ -7,7 +7,7 @@ Introduction
 ------------
 CLEVER is a framework for `ab initio` sequence-based prediction of mutation gene expression effects for primary human cell types. With this web interface, we provide an explorer of cell type-specific expression effect predictions. The current release contains all ClinVar variants within +/- 20kb of the representative TSS of a gene. We use 1000 Genomes variant effects predictions for z-score normalization. No effect threshold was employed for the current release of the data.
 
-The code for predicting expression effects for human genome variants and training new expression models is available at this `github repository <https://github.com/FunctionLab/KSENIA>`_.
+The code for predicting expression effects for human genome variants and training new expression models is available at this `github repository <https://github.com/ksenia007/CLEVER>`_.
 
 The CLEVER framework is described in the following manuscript:
 
