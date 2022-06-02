@@ -15,9 +15,10 @@ Ksenia Sokolova, Chandra L. Theesfeld, Aaron K. Wong, Zijun Zhang, Kara Dolinski
 
 Download
 --------
-Predicted expression effects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ClinVar scaled non-coding predictions  `link <https://humanbase.s3.us-west-2.amazonaws.com/clever/clinvar_1000G_final_nc_all_info.csv>`_ 
+`ClinVar scaled non-coding predictions <https://humanbase.s3.us-west-2.amazonaws.com/clever/clinvar_1000G_final_nc_all_info.csv>`_ 
+
+`sLDSC annotations <https://humanbase.s3.us-west-2.amazonaws.com/clever/CLEVER_preds_sLDSC_annot.tgz>`_ 
+
 
 Method Details
 --------------
