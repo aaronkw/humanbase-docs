@@ -17,7 +17,7 @@ Download
 --------
 Predicted expression effects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This is the bulk download `link <KSENIA>`_ of all mutation predictions.
+ClinVar scaled non-coding predictions  `link <https://humanbase.s3.us-west-2.amazonaws.com/clever/clinvar_1000G_final_nc_all_info.csv>`_ 
 
 Method Details
 --------------
