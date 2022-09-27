@@ -45,7 +45,7 @@ Help topics
    tissue-networks
    modules
    netwas
-   deepsea
+   sei
    beluga
    expecto
    citations

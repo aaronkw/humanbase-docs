@@ -1,5 +1,5 @@
 =======
-Beluga / DeepSEA
+DeepSEA (Beluga)
 =======
 
 Introduction
