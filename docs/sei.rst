@@ -1,5 +1,5 @@
 =======
-Sei / DeepSEA
+Sei
 =======
 
 Introduction
