@@ -414,31 +414,31 @@ How do I improve the results?
 If you get a weak result after evaluating with the above methods, what
 can you do to improve your results?
 
-1) Refine the datasets - perhaps you notice that the all-dataset search
+1) **Refining the datasets** - perhaps you notice that the all-dataset search
    mode does not work very well for your query. In this case, try refining
-   to a tissue or disease of interest. (Note that Quick Refine is available
-   for most of the common selected tissues).
+   to a tissue or disease of interest.
 
-   You prefer the wide-reach of all-dataset mode but still wish to refine
-   by cancer or noncancer. The solution would be to refine by cancer or
-   non-cancer datasets (highly general categories each contains over 2000
-   datasets; we highly recommend these two categories).
+   If you prefer a wide-reach similar to all-dataset mode but still wished
+   to refine for instance by cancer the solution would be to refine by cancer
+   datasets (a highly general category with over 3000 datasets). The number
+   of datasets is listed next to each entry in the `Dataset filter`.
 
-You don't know which tissue to refine to, because you don't know which tissues they are expressed in. We suggest using multi-tissue profiling search mode (in Quick Refine or Refine Search) to first check which tissue your query is expressed (this works for both single gene and multi-gene query).
+   If you don't know which tissue to refine to, because you don't know which
+   tissues they are expressed in. We suggest running the query without
+   selecting any tissues. The resulting top genes
+   tissue your query is expressed (this works for both single gene and
+   multi-gene query).
 
-You reviewed the top ranked datasets and found some interesting datasets. You can maually select individual datasets to interogate with the Refine Search.
+2) **Refining the query**
 
-2) Refine the query
-
-   Small query - (<3 genes). Small query sometimes
-   may not allow SEEK to accurately prioritize datasets. In this case,
+   **Small query** - (<3 genes). Small queries may sometimes
+   not allow SEEK to accurately prioritize datasets. In this case,
    we suggest expanding your query with functionally related genes (such
    as those that physically interact with the query). This may improve the
-   result. Use STRING, IMP to get these genes. Along this line, another
-   popular approach is to add tissue or disease specific genes to your query
-   with the help of multi-tissue profiling search mode in SEEK.
+   result. Use **STRING**, **IMP** to get these genes. Along this line, another
+   popular approach is to add tissue or disease specific genes to your query.
 
-   Large query - use visualization based evaluation discussed above to
+   **Large query** - use visualization based evaluation discussed above to
    filter your query to a coexpressed subset.
 
 FAQ
