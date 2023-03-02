@@ -48,4 +48,5 @@ Help topics
    sei
    beluga
    expecto
+   seek
    citations
