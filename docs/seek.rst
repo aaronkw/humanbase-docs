@@ -5,12 +5,28 @@ SEEK - Search-Based Exploration of Expression Compendium
 
 What is SEEK?
 =============
-SEEK is a computational gene co-expression search engine. SEEK provides biologists with a way to navigate
-the massive human expression compendium that now contains thousands of expression datasets. SEEK returns a robust
-ranking of co-expressed genes in the biological area of interest defined by the user's query genes. In the meantime,
-it also prioritizes thousands of expression datasets according to the user's query of interest. The unique strengths
-of SEEK include its support for multi-gene query and cross-platform analysis, as well as its rich visualization
-features.
+SEEK is a computational gene coexpression search engine. SEEK provides biologists with
+a way to navigate
+the massive human expression compendium that now contains thousands of expression
+datasets. SEEK returns a robust
+ranking of coexpressed genes in the biological area of interest defined by the user's
+query genes. In the meantime,
+it also prioritizes thousands of expression datasets according to the user's query of
+interest. The unique strengths
+of SEEK include its support for multi-gene query and cross-platform analysis, as well
+as its rich visualization features.
+
+
+Cross-organism, cross platform, coexpression search
+----------------------------------------------------
+
+SEEK automatically prioritizes relevant datasets where patterns of coexpression are
+conserved across six organisms: human, mouse,
+worm, fly, zebrafish and yeast. Since results are simultaneously calculated
+for each organism, we rank
+each for their similarity to the query organism with regards to gene function
+preservation.
+
 
 
 SEEK hubbiness correction
@@ -70,9 +86,12 @@ of 344 evaluated GO biologial processes (when we searched a subset of each proce
 
 |
 
-The average performance improvement is 154% in precision at 10% recall. Much of the improvement comes from the
-cross-validated dataset weighting algorithm that is flexible to detect partial coexpression between the query
-genes using a robust rank-based framework. In the Figure, n\ :sub:`1`\  is the number of GO terms where SPELL outperforms
+The average performance improvement is 154% in precision at 10% recall.
+Much of the improvement comes from the
+cross-validated dataset weighting algorithm that is flexible to detect
+partial coexpression between the query
+genes using a robust rank-based framework. In the Figure, n\ :sub:`1`\
+is the number of GO terms where SPELL outperforms
 SEEK; n\ :sub:`2`\  is the count of the reverse.
 
 
@@ -82,7 +101,8 @@ Getting Started
 Starting a search
 -----------------
 
-Enter the query in gene-symbols, separated by spaces (see the **Figure 1* below). Query can be a
+Enter the query in gene-symbols, separated by spaces (see the Figure below).
+Query can be a
 single-gene or multiple genes (up to ~150). If the query is multi-gene, then there
 should be some connections between the query genes (such as coexpressions), or the
 query should be biologically coherent (for example, they describe a common
@@ -91,7 +111,7 @@ biological process, function, module, or they physically interact).
 .. figure:: docs/img/SEEK_Getting_Started_1.png
     :width: 800px
 
-    Figure 1: SEEK query component
+    SEEK query component
 
 Viewing the retrieved genes and datasets
 ----------------------------------------
@@ -108,7 +128,7 @@ side-by-side comparison across datasets is shown.
 The top 3 datasets are automatically selected and ordered by relevance
 to the query genes. Above the heatmaps are the dataset titles.
 To the left of the heatmaps the row header are the gene names
-and co-expression score.
+and coexpression score.
 The gene can be clicked to open up its HumanBase network anaylsis
 in a new browser tab.
 SEEK derives a single integrated coexpressed gene ranking, since it is more
@@ -124,38 +144,71 @@ The titles of the selected datasets appear in an expandable
 
     SEEK expanded dataset panel
 
-
-TODO -> PVALUE
-===========
-
-Use the **`Download`** button next to the legend to see the complete
-rank lists for both genes and datasets. <<<For example, the gene-list
-export (Figure 3) shows
-a table with gene name, ENTREZ ID, co-expression score, the gene
-P-Value, and description. P-Value is estimated from comparing
-the observed gene rank with the gene ranks in 10,000 random queries. >>>
-
 Gene-enrichment analysis
 ------------------------
 
-TODO -> THIS IS DIFFERENT
-======================
+SEEK allows users to search for a set of genes from one of six organisms:
+human, mouse, worm, fly, zebrafish, and yeast, to find patterns of coexpression.
+The SEEK system then automatically prioritizes relevant datasets, where patterns
+of coexpression are conserved. Since results are simultaneously calculated for
+each organism, we rank each for their similarity to the query organism with regards
+to gene function preservation. We also show term enrichment across the
+prioritized datasets to better understand the different experimental contexts
+in each model organism that are driving the observed results.
 
-Click on "Enrichment of genes" to biologically interpret retrieved co-expressed
-genes. SEEK performs a hypergeometric test based on a selected number of top
-retrieved genes and a selected functional database (Figure 4).
+.. figure:: docs/img/SEEK-Enrichment-Flowchart.png
+    :width: 800px
+
+    Flow chart description of SEEK enrichment
+
+SEEK converts all genes from the initial query into their orthologs using annotations
+from the `OrthoMCL <http://orthomcl.org/orthomcl/>`_ database.
+
+SEEK is then run for each individual organism - ranking all genes by coexpression
+to each query and weighting datasets where they are coexpressed. Rank-based
+enrichments are then calculated for the gene rankings and the datasets to give
+a picture of the functional similarities between organisms.
+
+These functional enrichments for the genes are then each compared to the enrichment
+terms of the query organism in a pairwise manner (using Spearman correlation) that
+captures how many processes are shared between the query and the other organism.
+
+Finally, these results are ranked and presented to the user along with the lists
+of shared GO terms derived from the gene rankings and shared terms covered by
+the dataset rankings (see Figure: Ortholog Ranks and Figure: Gene and dataset
+enrichments).
+
+.. figure:: docs/img/SEEK-Ortholog_Ranks.png
+    :width: 800px
+
+    SEEK ortholog ranks
+
+.. figure:: docs/img/SEEK-Gene_and_Dataset_Enrichment.png
+    :width: 800px
+
+    SEEK gene and dataset enrichments
+
+SEEK provides an avenue to explore
+coexpression patterns within an organism, but in addition, also allows users to
+examine their conservation across organisms, which can facilitate knowledge transfer
+between species. These cross-organism comparisons are crucial, as some particular
+disease processes may be more evident in the coexpression patterns of one organism
+versus another. In our case studies, we found that some disease processes have
+distinct mappings in particular organisms, suggesting that distinct model systems
+can capture useful, unique facets of disease pathology.
+
 
 Limit search to tissue or disease related datasets
 --------------------------------------------------
 
 By default, SEEK searches through the entire compendium to discover relevant
-datasets and co-expressed genes. However, users can limit the scope of the
+datasets and coexpressed genes. However, users can limit the scope of the
 search to specific disease, cell, or tissue categories. This is helpful if a
 user wants to view expression only in a given expression context.
 
 To limit the query this way, before you submit the query, first choose from among
 the tissue or disease categories listed. You will find them using the
-searchable **`Dataset filter`** component on the query page (see Figure 1 above).
+searchable **`Dataset filter`** component on the query page.
 Once selections from the available categories are complete, click "Submit"
 and SEEK will perform the query utilizing only the subset of datasets related to
 the chosen categories.
@@ -173,7 +226,7 @@ i. Explore a pathway across the diverse compendium datasets, in this specific
 example we will explore the Hedgehog signaling pathway (Hh)
 
 ii. Find disease states and cancer types in which Hh pathway genes
-are co-expressed (i.e. find datasets associated with the Hh pathway)
+are coexpressed (i.e. find datasets associated with the Hh pathway)
 
 iii. Discover other gene candidates in this pathway and examine them in the
 Functional Module Detection (FMD) tool which you can read about in these
@@ -193,7 +246,7 @@ which are transcription factors and receptor protein that are markers of
 this pathway, and central to the machinery.
 
 The figure below shows the result of this query. In this figure, the
-prioritization of datasets is based on the co-expression of the query genes.
+prioritization of datasets is based on the coexpression of the query genes.
 The top 3 datasets are automatically selected and shown in an expandable `accordion`
 component, and shown as well in the 3 heatmaps arranged side by side.
 These prioritized datasets
@@ -232,14 +285,14 @@ Pinpointing disease/cancer types associated with a pathway can be very useful.
 It can suggest a pathway-based stratification of cancer patients based on pathway
 profiles, which may lead to useful strategies for treating the patient by
 targeting the Hh pathway. By looking across thousands of datasets in SEEK, the
-co-expression landscape across diverse tissue/disease states can now be
+coexpression landscape across diverse tissue/disease states can now be
 comprehensively examined.
 
 iii. Discover other gene candidates in this pathway
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To answer the third question, look at the row headings to the left of the
-heatmaps. These are the genes that are co-expressed with the query genes.
+heatmaps. These are the genes that are coexpressed with the query genes.
 These represent genes that are predicted
 to be associated with Hh. SEEK retrieved many currently known members of Hh
 machinery, such as **SMO, HHIP, BOC, and PTCH2**. One of the top ranked members that
@@ -258,7 +311,7 @@ microarray study or RNASeq study. But for various reasons, the gene enrichment
 analysis sometimes msight not find any pathways, or the relevant pathways aren't
 detected. This could be due to factors such as heterogeneity of the gene-set,
 biological noises in the data, or limited number of genes to do enrichment on,
-etc. SEEK can offer an alternative solution by performing a **co-expression
+etc. SEEK can offer an alternative solution by performing a **coexpression
 expansion** on the gene-set first.
 
 For example, we have a set of 10 genes which represent biomarkers for the
@@ -325,6 +378,48 @@ In particular, the regulation of MMPs by **SERPINF1** is important in the contex
 of angiogenesis, and is recently described as a promising target for cancer
 therapy `[18] <http://www.karger.com/Article/Abstract/350069>`_.
 
+Case Study #4: Model organisms can capture different processes of cancer
+------------------------------------------------------------------------
+
+One use case of SEEK is to leverage model systems to better
+understand human disease. In such pursuits, users might query genes that they
+have identified in their study, whether from a model system or clinical data.
+
+To simulate the latter, we used SEEK to search for disease genes taken from
+`COSMIC <http://cancer.sanger.ac.uk/cosmic>`_ (the Catalogue of Somatic
+Mutations in Cancer). Using these we will show how mouse and fly can be
+used as models of pancreatic cancer.
+
+Pancreatic cancer has one of the worst prognosis rates of any tumor type with the
+chance of 5 year survival at only 5%. One main contributing factor to the poor
+survival rate is the fact that pan-creatic cancer is often not diagnosed until
+it is late stage, and symptoms are non-distinct. Any clues that would enable
+early detection or treatment would be important breakthroughs.
+
+We queried
+tier 1 human pancreatic cancer genes from COSMIC to see if we could find
+any interesting disease characteristics. Mouse (p=0.46) and fly (p=0.33) models
+are the most functionally correlated with the query. Epigenetic processes
+(e.g., chromatin modification, protein ubiq- uitination, and protein acetylation)
+are strongly enriched in both organisms, consistent with the
+`recent studies <https://pubmed.ncbi.nlm.nih.gov/16858539/>`_ that
+demonstrate the important role of epigenetic modifications in pancreatic cancer.
+
+Both models are also enriched for datasets with ribosome descriptors
+(mouse p=3.3e−4 , fly p=7.1e ̄3)). The pancreas is primarily a metabolic organ,
+and though fly does not have an explicit pancreas, datasets related to
+metabolic processes are enriched in the SEEK results for fly (glucose
+p=4.6e ̄3, type 2 diabetes p=5.4e ̃3, superoxide dismutase p=2.6e ̄3).
+
+Mouse datasets do not have a dominating signal and are enriched for a mix
+of terms relating to different disorders and environmental toxins.
+These disorders (e.g., intrahepatic cholestasis p=5.9e ̄3, scleroderma p=4.7e ̄2)
+have hallmarks of pancreatic inflammation or toxins (e.g., butadienes p=1.3e-4)
+which have been shown to be damaging to the pancreas. These findings
+demonstrate that SEEK can pick up consistent signals between organisms
+that reflect functional features of their human
+counterparts.
+
 Evaluating your search result
 =============================
 
@@ -354,12 +449,10 @@ In general, the higher the enrichment score, the better is the biolgical
 signal within the coexpressed genes (and so can be said about your query
 genes, due to the guilt-by-association principle). SEEK allows users to
 highlight which coexpressed genes overlapped with a given process' gene-set
-annotations:
+annotations.
 
-ADD FIGURE 1 IMAGE HERE
-
-Use the Dataset Enrichment function to check for over-representation
---------------------------------------------------------------------
+Use the dataset enrichment chart to check for over-representation
+-----------------------------------------------------------------
 
 Tissue or disease categories may be over-represented among top datasets
 prioritized by SEEK given query. Since every dataset is associated with
@@ -373,40 +466,31 @@ tissue and disease terms may be general. So if users wish to be specific,
 it is recommended that they read the description of each prioritized dataset
 to fully evaluate its relevance.
 
-A nice feature of SEEK is that it gives prioritization of all 5000 datasets
-given query genes, based on which exhibits significant coexpression. Users
-can check from this list where an interested dataset is ranked relative to
-query, or in more unbiased way what are all top datasets.
+A nice feature of SEEK is that it prioritizes more than 10k datasets
+given query genes and based on which exhibits significant coexpression. Users
+can check the produced list where an interesting dataset is ranked relative to
+the query.
 
-Use a clustering based evaluation
+Uses a clustering based evaluation
 ---------------------------------
 
 In order to assess coexpression relationships between query genes,
 clustering (or correlation) based measures are defined to individually
 evaluate datasets. If query genes are strongly clustered more so than
 random groups of genes in each dataset, this indicates that relevant
-biological processes are active and dataset is relevant.
-
-This mode is good for users who prefer a quantitative measure of evaluation.
+biological processes are active and the dataset is relevant.
 
 SEEK provides coexpression P-values for all datasets in the compendium.
 The measure is based on rank-biased version of Pearson correlation (see
 publication, referred to as the "dataset weight")
 
 The clustering of genes offers a lot of information about the heterogeneity
-of query gene-set in the cancer samples. See below for examples of
-different degree of coexpression (ranging from most coherent, to slighly
-incoherent, to heterogeneous). SEEK calculates, and furthermore allows
-you to visualize how query genes are coexpressed with each other in the
+of query gene-set in the cancer samples. SEEK calculates, and furthermore
+visualizes how query genes are coexpressed with each other in the
 Expression Viewer. With this viewer, we can intuitively interpret large
-queries (with over 10 query genes) where it is impossible to know what
-coexpressed groups may be formed within a large query (Figures 2,3,4).
+queries (ie. 10 query genes or more) where it is impossible to know what
+coexpressed groups may be formed within a large query.
 
-ADD IMAGES FIGURE 2,3,4 HERE
-
-Tip: to see individual dataset's coexpression P-value, click on the
-link See the complete dataset-list ranked by query-relevance below
-the result page.
 
 How do I improve the results?
 -----------------------------
@@ -451,18 +535,18 @@ What is SEEK?
 ~~~~~~~~~~~~~
 
 SEEK stands for Search-based Exploration of Expression Compendium. It is a
-gene-based human co-expression search system. Given a query gene-set, the
+gene-based human coexpression search system. Given a query gene-set, the
 system prioritizes thousands of expression datasets (deposited in the public
 repository GEO) in order to find those that may be relevant to the query.
 Additionally, SEEK integrates datasets to identify other genes that are
-co-expressed with the query genes.
+coexpressed with the query genes.
 
 What is SEEK used for?
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Following are some scenarios in which finding co-expressions could be useful:
+Following are some scenarios in which finding coexpressions could be useful:
 
-- When users define a query of a single-gene, SEEK can retrieve co-expressed genes
+- When users define a query of a single-gene, SEEK can retrieve coexpressed genes
   to reveal insights about the function of the query gene.
 
 - Biologists might have a small set of candidate genes from genetic screens, or
@@ -471,7 +555,7 @@ Following are some scenarios in which finding co-expressions could be useful:
   gene-set (a biological process, pathway, molecular function, common miRNA or TF
   regulator, etc).
 
-- The co-expressed genes may also identify possible gene-interactions involving
+- The coexpressed genes may also identify possible gene-interactions involving
   the query.
 
 Because SEEK prioritizes datasets, SEEK also helps to establish associations between
@@ -480,9 +564,9 @@ dataset metadata).
 
 You can ask questions such as:
 
-- What are the datasets in the compendium where my query genes are co-expressed?
+- What are the datasets in the compendium where my query genes are coexpressed?
 
-- Are these datasets with query co-expression seem to be associated with a particular
+- Are these datasets with query coexpression seem to be associated with a particular
   disease or tissue type?
 
 What are the advantages of SEEK?
@@ -490,13 +574,13 @@ What are the advantages of SEEK?
 
 Advantages include:
 
-- Robust and cross-platform co-expressed gene integration, which means that co-expressed
+- Robust and cross-platform coexpressed gene integration, which means that coexpressed
   genes from multiple platforms can be added together to give a robust gene ranking.
 
 - A large collection of expression datasets being used for integration (5500 datasets
   with 155,000 arrays, and include RNASeq datasets).
 
-- Global or area-specific co-expression search.
+- Global or area-specific coexpression search.
 
 - Attractive visualization of expression patterns with flexible attribute-based condition
   display and clustering.
@@ -508,19 +592,19 @@ What is the dataset weighting algorithm used by SEEK?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The weight of each dataset is calculated at the search time and uses the query genes.
-The rationale is to up-weight datasets where the query genes are co-expressed
+The rationale is to up-weight datasets where the query genes are coexpressed
 `[1] <http://bioinformatics.oxfordjournals.org/content/23/20/2692.short>`_. The
-more co-expressed they are in a dataset, the more relevance the dataset has, and the
+more coexpressed they are in a dataset, the more relevance the dataset has, and the
 higher the weight will be.
 
 A **cross-validation based algorithm** is being used to give robust dataset weights.
 This divides the query into several parts, chooses one part as a sub-query,
 then evaluates how well the dataset retrieves the remaining query parts.
 
-Frequently, the query genes are only **partially co-expressed** even in the
+Frequently, the query genes are only **partially coexpressed** even in the
 most informative datasets. As a result, the correlations between the
 non-coexpressed parts of the query can hurt the weight of dataset that is actually
-calculated from the co-expressed, informative part of the query. To solve this
+calculated from the coexpressed, informative part of the query. To solve this
 challenge, SEEK utilizes a rank-based procedure, inspired by **rank-biased precision**
 `[2] <http://dl.acm.org/citation.cfm?id=1416952>`_
 from information retrieval, to give
@@ -548,7 +632,7 @@ How is the score of each gene computed?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Computing the final gene score uses the dataset weights (previously discussed in
-this FAQ) in order to reflect the co-expressions that are located in the top
+this FAQ) in order to reflect the coexpressions that are located in the top
 relevant datasets. For each gene :math:`g`, the final score is:
 
 .. image:: docs/img/SEEK_fg_formula.png
@@ -577,7 +661,7 @@ caused by those genes with insufficient dataset coverage, we discard genes that
 are covered by less than 50% of the compendium. These genes automatically
 have the lowest score.
 
-How do I know if the co-expressed genes retrieved by SEEK are significant?
+How do I know if the coexpressed genes retrieved by SEEK are significant?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In order to assess the significance of the retrieved genes, we adopt a
@@ -591,16 +675,16 @@ the rank of ``x`` is higher than the rank of ``x`` in the true query. We note th
 null model is generally very similar between different query sizes beyond the query size
 of 10 genes. So we can use a size-free estimation for these query sizes.
 
-How do I know if my query is co-expressed or not?
+How do I know if my query is coexpressed or not?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Since the dataset weight is calculated by query co-expression, the dataset weight can
-directly answer this question. In general, the query would be considered co-expressed if
+Since the dataset weight is calculated by query coexpression, the dataset weight can
+directly answer this question. In general, the query would be considered coexpressed if
 there is a subset of datasets in the compendium with sufficiently high dataset weight.
 
 The **significance** of the dataset weight can indicate how query coexpression is compared to
 random. The **number** of datasets with significant dataset weight (given some P-value
-threshold) can indicate whether this query co-expression is widely occurring in the
+threshold) can indicate whether this query coexpression is widely occurring in the
 compendium or restricted to a subset of datasets.
 
 
@@ -644,7 +728,7 @@ How do I get the complete list of genes or datasets prioritized to the given que
 
 On the SEEK expression result page, next to the heatmap legend there is a button
 labeled `Download`. Clicking on this button will allow you to choose between
-downloading a CSV of either the genes ranked by co-expression score or datasets
+downloading a CSV of either the genes ranked by coexpression score or datasets
 ranked by query relevance (aka weight).
 
 How can I check the rank for a gene or dataset of interest?
@@ -652,7 +736,7 @@ How can I check the rank for a gene or dataset of interest?
 
 There are two ways to check the rank for a gene or dataset of interest:
 
-1) Get the complete list of co-expressed genes or datasets (see previous question)
+1) Get the complete list of coexpressed genes or datasets (see previous question)
    and search for your gene / dataset of interest in the CSV. The rank is included
    in the first column of each row.
 
