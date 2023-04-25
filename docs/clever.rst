@@ -27,20 +27,20 @@ To see details about the top cell type and effect per variant the user can hover
   :width: 800
   :alt: Primary view with hover information
   
- To see all the cell type predictions for an organ system, the user can click on the organ name. For example, here are the PTEN results for brain:
+To see all the cell type predictions for an organ system, the user can click on the organ name. For example, here are the PTEN results for brain:
  
  .. image:: img/expectosc_img3.png
   :width: 800
   :alt: Details page
   
- As previously, hovering over the heat map shows additional information about the variant and effect:
+As previously, hovering over the heat map shows additional information about the variant and effect:
  
   .. image:: img/expectosc_img4.png
   :width: 800
   :alt: Details page with hover
   
  
- Drop-down menu in the upper left corner allows users to select multiple organ cell types at the same time for a side-by-side comparison:
+Drop-down menu in the upper left corner allows users to select multiple organ cell types at the same time for a side-by-side comparison:
  
    .. image:: img/expectosc_img5.png
   :width: 800
