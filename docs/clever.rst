@@ -42,7 +42,7 @@ As previously, hovering over the heat map shows additional information about the
  
 Drop-down menu in the upper left corner allows users to select multiple organ cell types at the same time for a side-by-side comparison:
  
-.. image:: img/expectosc_img5.png
+.. image:: img/expectosc_img5.jpg
   :width: 800
   :alt: Drop-down menu
 
