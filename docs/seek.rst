@@ -5,27 +5,20 @@ SEEK - Search-Based Exploration of Expression Compendium
 
 What is SEEK?
 =============
-SEEK is a computational gene coexpression search engine. SEEK provides biologists with
-a way to navigate
-the massive human expression compendium that now contains thousands of expression
-datasets. SEEK returns a robust
-ranking of coexpressed genes in the biological area of interest defined by the user's
-query genes. In the meantime,
-it also prioritizes thousands of expression datasets according to the user's query of
-interest. The unique strengths
-of SEEK include its support for multi-gene query and cross-platform analysis, as well
-as its rich visualization features.
+SEEK is a computational gene coexpression search engine, which provides biologists with
+a way to navigate the massive expression compendiums in 6 organisms: human, mouse, worm, fly, zebrafish, and yeast. 
+SEEK returns a robust ranking of genes coexpressed with the user's query genes across hundreds of thousands of 
+expression experiments. 
+Additionally, it prioritizes thousands of expression datasets by the query genes' coexpression signal in each dataset.
+Datasets where the query genes are more strongly coexpresesed will be prioritized, and contribute more to the ranking of
+coexpressed genes. The unique strengths of SEEK include its support for multi-gene query and cross-platform analysis, 
+as well as its rich visualization features.
 
 
 Cross-organism, cross platform, coexpression search
 ----------------------------------------------------
-
-SEEK automatically prioritizes relevant datasets where patterns of coexpression are
-conserved across six organisms: human, mouse,
-worm, fly, zebrafish and yeast. Since results are simultaneously calculated
-for each organism, we rank
-each for their similarity to the query organism with regards to gene function
-preservation.
+For each gene query, SEEK is automatically and simultaneously run in all six organisms. Users can explore conserved 
+functional enrichments across organisms, and compare the coexpression patterns of the query genes across organisms.
 
 
 
@@ -44,7 +37,7 @@ The effect of this correction is that a highly connected target gene will be bro
 subtracting its higher average coexpression score, so that the degree of the genes will be balanced out in the
 coexpression network, and the search result will reflect genes that are more specifically correlated with the query.
 
-**Evaluation and example**
+**Evaluation**
 
 We tested this on a group of 344 GO Biological Process slim terms, retrieving co-annotated genes from each slim term.
 This hubbiness correction brought improvement to 219 GO terms, with the average performance improvement being 124%.
@@ -53,47 +46,6 @@ In the other 125 GO terms where performance did not significantly improve or per
 was able to retain >83% of the original performance. The performance is measured in terms of the precision at 10%
 recall. In another evaluation, we sought to evaluate whether SEEK successfully downweight frequently retrieved genes.
 
-Specifically, we checked the rank difference that the correction makes on specific genes. We searched 1000 randomly
-selected queries. The Table below shows the frequency that the hubby genes appear in the top 100 rank positions before
-and after the correction procedure.
-
-
-.. image:: docs/img/SEEK_hubby_genes.png
-    :width: 800px
-
-
-
-SEEK vs SPELL comparison
-------------------------
-
-SPELL (`Hibbs et al <http://www.ncbi.nlm.nih.gov/pubmed/17724061>`_) is a previously developed algorithm designed
-to search for coexpressed genes in the yeast
-expression compendium. While this algorithm was helpful for yeast, it was insufficient for searching the large human
-compendium, which is 20-times greater than yeast (~5,000 datasets compared to 300), and the number of genes in human
-is also 4-times greater (25,000 compared to 6,000).
-
-We found SEEK to be better than SPELL in terms of tackling the dramatic increase in the size of the human data,
-where the human genes also exhibit substantially more heterogeneous expression patterns. In SEEK, we have made many
-data-structure changes, optimizations to the system and implementations, using the
-`Sleipnir library <https://functionlab.github.io/sleipnir-docs/>`_. The search
-algorithm is also fundamentally different from SPELL. The figure below shows that SEEK beats SPELL in 248 out
-of 344 evaluated GO biologial processes (when we searched a subset of each process' genes to retrieve the rest).
-
-|
-
-.. image:: docs/img/SEEK_SPELL_comparison.png
-    :width: 800px
-
-|
-
-The average performance improvement is 154% in precision at 10% recall.
-Much of the improvement comes from the
-cross-validated dataset weighting algorithm that is flexible to detect
-partial coexpression between the query
-genes using a robust rank-based framework. In the Figure, n\ :sub:`1`\
-is the number of GO terms where SPELL outperforms
-SEEK; n\ :sub:`2`\  is the count of the reverse.
-
 
 Getting Started
 ===============
@@ -101,12 +53,11 @@ Getting Started
 Starting a search
 -----------------
 
-Enter the query in gene-symbols, separated by spaces (see the Figure below).
-Query can be a
-single-gene or multiple genes (up to ~150). If the query is multi-gene, then there
-should be some connections between the query genes (such as coexpressions), or the
-query should be biologically coherent (for example, they describe a common
-biological process, function, module, or they physically interact).
+Enter a query as gene symbols or entrez IDs, separated by spaces or commas (see the Figure below).
+A query can be two or more genes (up to ~150). A key assumption of SEEK is that the query genes
+should be, to an extent, functionally related. For example, the query should be biologically coherent 
+and represent a common biological process, function, module, or physical interactions. In many cases,
+researchers query genes discovered from a differential expression analysis.
 
 .. figure:: docs/img/SEEK_Getting_Started_1.png
     :width: 800px
