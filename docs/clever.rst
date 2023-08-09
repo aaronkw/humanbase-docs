@@ -54,6 +54,8 @@ Download
 
 `sLDSC annotations <https://humanbase.s3.us-west-2.amazonaws.com/clever/CLEVER_preds_sLDSC_annot.tgz>`_ 
 
+`DeepSEA weights <https://humanbase.s3.us-west-2.amazonaws.com/clever/deepsea.beluga.pth>`_
+
 
 Method Details
 --------------
